@@ -82,9 +82,7 @@ while True:
         try:
             p1=int(input('Номер первой заметки для замены положения: '))-1
             p2=int(input('Номер второй заметки для замены положения: '))-1
-            notePr=note[p1]
-            note[p1]=note[p2]
-            note[p2]=notePr
+            note[p1],note[p2]=note[p2],note[p1]
             rewr()
             print('Положение изменено')
             pause()
@@ -110,22 +108,24 @@ while True:
     elif act=='отметить выполненной':
         try:
             ov=int(input('Номер заметки для отметки "Выполнено": '))-1
-            slPr=note[ov]
             sl=''
-            for i in range(len(slPr)-1):
-                sl=sl+slPr[i]
+            for i in range(len(note[ov])-1):
+                sl=sl+note[ov][i]
             if len(note)==ov+1:
                 dubl=note[-1]
-                if not '|' in dubl:
+                if not '|' in note[-1]:
                     note[-1]=sl+' | ВЫПОЛНЕНО\n'
                     print('Отмечено')
                 else:
                     print('Заметка и так отмечена')
             else:
-                note[ov]=sl+' | ВЫПОЛНЕНО\n'
-                note.append(note[ov])
-                note.pop(ov)
-                print('Отмечено')
+                if not '|' in note[ov]:
+                    note[ov]=sl+' | ВЫПОЛНЕНО\n'
+                    note.append(note[ov])
+                    note.pop(ov)
+                    print('Отмечено')
+                else:
+                    print('Заметка и так отмечена')
             rewr()
             pause()
             show()
