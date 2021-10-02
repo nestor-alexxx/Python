@@ -1,7 +1,8 @@
+import time
+
 act=''
 note=[]
 
-import time
 print('Приложение "Заметки"')
 
 def show():
@@ -12,19 +13,17 @@ def show():
             print(i,v,sep='. ',end='')
 
 def rewr():
-    f=open('zametki.txt','w')
-    for i in note:
-        f.write(i)
-    f.close()
+    with open('zametki.txt','w') as f:
+        for i in note:
+            f.write(i)
 
 def pause():
     time.sleep(0.6)
 
 try:
-    r=open('zametki.txt','r')
-    for i in r:
-        note.append(i)
-    r.close()
+    with open('zametki.txt','r') as r:
+        for i in r:
+            note.append(i)
 except:
     rewr()
 
